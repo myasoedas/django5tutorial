@@ -74,8 +74,10 @@ website
             {% for post in posts %}
             <div class="col-md-6">
                 <div class="card h-100">
-                    {% if post.image %}
+                    {% if post.image and post.image.name %}
                     <img src="{{ post.image.url }}" class="card-img-top alt-text" alt="{{ post.title }}">
+                    {% else %}
+                    <img src="/static/img/default-og-image.jpg" class="card-img-top alt-text" alt="Изображение по умолчанию для '{{ post.title|default:"публикации без названия" }}'">
                     {% endif %}
                     <div class="card-body">
                         <h5 class="card-title">{{ post.title }}</h5>

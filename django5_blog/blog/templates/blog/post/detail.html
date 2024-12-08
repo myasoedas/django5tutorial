@@ -1,4 +1,5 @@
 {% extends "blog/base.html" %}
+{% load static %}
 
 {% block title %}{{ page_title|default:"Публикация" }}{% endblock %}
 
@@ -11,10 +12,10 @@
 {% block og_type %}article{% endblock %}
 {% block og_url %}{{ request.build_absolute_uri }}{% endblock %}
 {% block og_image %}
-{% if page_og_image_url %}
-    {{ page_og_image_url }}
+{% if post.image and post.image.name %}
+    {{ post.image.url }}
 {% else %}
-    {{ request.build_absolute_uri|add:STATIC_URL|add:"img/default-og-image.jpg" }}
+    {% static 'img/default-og-image.jpg' %}
 {% endif %}
 {% endblock %}
 {% block og_image_alt %}{{ page_og_image_alt|default:"Общее изображение" }}{% endblock %}
@@ -24,10 +25,10 @@
 {% block twitter_title %}{{ page_title|default:"Публикация" }}{% endblock %}
 {% block twitter_description %}{{ page_description|default:"Описание отсутствует." }}{% endblock %}
 {% block twitter_image %}
-{% if page_og_image_url %}
-    {{ page_og_image_url }}
+{% if post.image and post.image.name %}
+    {{ post.image.url }}
 {% else %}
-    {{ request.build_absolute_uri|add:STATIC_URL|add:"img/default-og-image.jpg" }}
+    {% static 'img/default-og-image.jpg' %}
 {% endif %}
 {% endblock %}
 {% block twitter_image_alt %}{{ page_og_image_alt|default:"Общее изображение" }}{% endblock %}
@@ -38,13 +39,16 @@
         <!-- Основной контент -->
         <main class="col-lg-8 col-md-7 mb-4 mx-auto">
             <div class="card mb-4">
-                {% if post.image %}
-                <img src="{{ post.image.url }}" class="card-img-top alt-text" alt="{{ post.title|default:"Изображение публикации" }}">
+                {% if post.image and post.image.name %}
+                <a href="{{ post.image.url }}" target="_blank">
+                    <img src="{{ post.image.url }}" class="card-img-top alt-text" alt="{{ post.title|default:"Изображение публикации" }}">
+                </a>
                 {% else %}
-                <div class="image-placeholder">
-                    {{ post.title|default:"Изображение публикации" }}
-                </div>
+                <a href="{% static 'img/default-og-image.jpg' %}" target="_blank">
+                    <img src="{% static 'img/default-og-image.jpg' %}" class="card-img-top alt-text" alt="Изображение по умолчанию для '{{ post.title|default:"публикации без названия" }}'">
+                </a>
                 {% endif %}
+
                 <div class="card-body">
                     <h1 class="card-title">{{ post.title }}</h1>
                     <p class="metadata">

@@ -16,9 +16,9 @@
 {% block og_url %}{{ request.build_absolute_uri }}{% endblock %}
 {% block og_image %}
 {% if posts and posts|length > 0 and posts.0.image %}
-    {{ request.build_absolute_uri|add:posts.0.image.url }}
+    {{ posts.0.image.url }}
 {% else %}
-    {{ request.build_absolute_uri|add:STATIC_URL|add:'img/default-og-image.jpg' }}
+    /static/img/default-og-image.jpg
 {% endif %}
 {% endblock %}
 {% block og_image_alt %}
@@ -37,9 +37,9 @@
 {% endblock %}
 {% block twitter_image %}
 {% if posts and posts|length > 0 and posts.0.image %}
-    {{ request.build_absolute_uri|add:posts.0.image.url }}
+    {{ posts.0.image.url }}
 {% else %}
-    {{ request.build_absolute_uri|add:STATIC_URL|add:'img/default-og-image.jpg' }}
+    /static/img/default-og-image.jpg
 {% endif %}
 {% endblock %}
 {% block twitter_image_alt %}
@@ -61,12 +61,10 @@
                 {% for post in posts %}
                 <div class="col-md-6">
                     <div class="card h-100">
-                        {% if post.image %}
+                        {% if post.image and post.image.name %}
                         <img src="{{ post.image.url }}" class="card-img-top alt-text" alt="{{ post.title }}">
                         {% else %}
-                        <div class="image-placeholder alt-text">
-                            {{ post.title }}
-                        </div>
+                        <img src="/static/img/default-og-image.jpg" class="card-img-top alt-text" alt="Изображение по умолчанию для '{{ post.title|default:"публикации без названия" }}'">
                         {% endif %}
                         <div class="card-body">
                             <h5 class="card-title">{{ post.title }}</h5>
