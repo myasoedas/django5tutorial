@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Выход из системы{% endblock %}
+
+{% block content %}
+<div class="container my-5 text-center">
+    <h2>Вы вышли из системы</h2>
+    <p class="text-muted">Спасибо за посещение. Вы можете войти снова или вернуться на главную страницу.</p>
+    <div class="mt-4">
+        <a href="{% url 'login' %}" class="btn btn-primary">Войти снова</a>
+        <a href="{% url 'blog:post_list' %}" class="btn btn-secondary">На главную</a>
+    </div>
+</div>
+{% endblock %}

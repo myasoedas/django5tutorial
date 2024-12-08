@@ -1,0 +1,75 @@
+{% extends "blog/base.html" %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <!-- Основной контент -->
+        <main class="col-lg-8 col-md-7 mb-4 mx-auto">
+            <div class="card mb-4">
+                {% if post.image %}
+                <img src="{{ post.image.url }}" class="card-img-top" alt="Изображение {{ post.title }}">
+                {% endif %}
+                <div class="card-body">
+                    <h1 class="card-title">{{ post.title }}</h1>
+                    <p class="metadata">
+                        Опубликовано <span class="date">{{ post.publish|date:"d M Y" }}</span> автором 
+                        <a href="{% url 'blog:author_posts' post.author.id %}" class="author-link">{{ post.author }}</a>
+                    </p>
+                    
+                    <div class="card-text">
+                        {{ post.body|linebreaks }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Раздел комментариев -->
+            <div class="comments-section mt-5">
+                <h3>Комментарии</h3>
+                {% if comments %}
+                    <ul class="list-group">
+                        {% for comment in comments %}
+                        <li class="list-group-item">
+                            <strong>{{ comment.author }}</strong>
+                            <p class="text-muted mb-1">{{ comment.created|date:"d M Y H:i" }}</p>
+                            <p>{{ comment.body }}</p>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p class="no-comments">Комментариев пока нет. Будьте первым!</p>
+                {% endif %}
+
+                <!-- Форма добавления комментария -->
+                {% if user.is_authenticated %}
+                <div class="mt-4">
+                    <h4>Добавить комментарий</h4>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ comment_form.as_p }}
+                        <button type="submit" class="btn btn-primary">Отправить</button>
+                    </form>
+                </div>
+                {% else %}
+                <p>Для добавления комментариев <a href="{% url 'login' %}">войдите в систему</a>.</p>
+                {% endif %}
+            </div>
+        </main>
+
+        <!-- Боковая панель -->
+        <aside class="sidebar col-lg-4 col-md-5 mb-4">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    Дополнительная информация
+                </div>
+                <div class="card-body text-custom">
+                    <p>Здесь можно разместить полезные ссылки или другую информацию.</p>
+                </div>
+            </div>
+        </aside>
+    </div>
+</div>
+
+<a href="{% url 'blog:post_list' %}" class="btn btn-secondary mt-4">Вернуться к списку</a>
+{% endblock %}

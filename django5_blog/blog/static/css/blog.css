@@ -1,0 +1,171 @@
+/* CSS-переменные для светлой темы */
+:root {
+    --primary-color: #007BFF;
+    --secondary-color: #333;
+    --background-color: #f8f9fa;
+    --text-color: #333;
+    --card-bg: #ffffff;
+    --card-border: #e0e0e0;
+    --card-header-bg: #007BFF;
+    --card-header-text: #ffffff;
+    --sidebar-text: #333;
+    --link-hover-color: #0056b3; /* Новый цвет для ссылок при наведении */
+    --link-active-color: #ffdd57; /* Цвет активных ссылок */
+}
+
+/* CSS-переменные для тёмной темы */
+[data-theme="dark"] {
+    --primary-color: #1e90ff;
+    --secondary-color: #ffffff;
+    --background-color: #121212;
+    --text-color: #e0e0e0;
+    --card-bg: #1f1f1f;
+    --card-border: #333333;
+    --card-header-bg: #1e90ff;
+    --card-header-text: #e0e0e0;
+    --sidebar-text: #e0e0e0;
+    --link-hover-color: #00aaff;
+    --link-active-color: #ffdd57;
+}
+
+/* Общие стили */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Навигационная панель */
+.navbar .nav-link {
+    color: var(--text-color);
+    font-weight: 600; /* Полужирный текст */
+    text-transform: uppercase; /* Верхний регистр */
+    transition: color 0.3s;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link:focus {
+    color: var(--link-hover-color);
+    text-decoration: underline;
+}
+
+.navbar .nav-link.active {
+    color: var(--link-active-color);
+    border-bottom: 2px solid var(--link-active-color);
+}
+
+/* Карточки */
+.card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.card-img-top {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    max-height: 200px;
+    object-fit: cover;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    color: var(--text-color);
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.card-text {
+    color: var(--text-color);
+    font-size: 0.9rem;
+}
+
+/* Заголовок карточки */
+.card-header {
+    background-color: var(--card-header-bg);
+    color: var(--card-header-text);
+    font-weight: bold;
+}
+
+/* Дополнительная информация (боковая панель) */
+.sidebar .card-body {
+    color: var(--sidebar-text);
+    font-size: 0.9rem;
+}
+
+/* Ссылки */
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--link-hover-color);
+}
+
+/* Метаданные */
+.metadata {
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+}
+
+/* Список постов */
+.post-title {
+    font-weight: bold;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    text-decoration: none;
+}
+
+.post-title:hover {
+    color: var(--link-hover-color);
+}
+
+/* Сообщение о пустых постах */
+.no-posts {
+    font-style: italic;
+    color: var(--text-color);
+}
+
+/* Пагинация */
+.pagination {
+    display: flex;
+    justify-content: center;
+}
+
+.page-item .page-link {
+    color: var(--primary-color);
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.page-item .page-link:hover {
+    color: var(--link-hover-color);
+    background-color: var(--background-color);
+}
+
+.page-item.disabled .page-link {
+    color: var(--text-color);
+    background-color: var(--card-bg);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .sidebar {
+        margin-top: 20px;
+    }
+    .card {
+        margin-bottom: 20px;
+    }
+}

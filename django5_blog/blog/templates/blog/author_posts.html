@@ -1,0 +1,62 @@
+{% extends "blog/base.html" %}
+
+{% block title %}Публикации автора {{ author.username }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Публикации автора: {{ author.username }}</h1>
+    <div class="row">
+        <!-- Основной контент -->
+        <main class="site-main col-lg-8 col-md-7 mb-4">
+            <div class="row g-4">
+                {% for post in posts %}
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        {% if post.image %}
+                        <img src="{{ post.image.url }}" class="card-img-top" alt="Изображение {{ post.title }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ post.title }}</h5>
+                            <p class="card-text">{{ post.body|truncatewords:10 }}</p>
+                            <a href="{% url 'blog:post_detail' post.id %}" class="btn btn-primary">Читать далее</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <!-- Пагинация -->
+            {% if is_paginated %}
+            <nav class="mt-4">
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Назад</a>
+                    </li>
+                    {% endif %}
+                    <li class="page-item disabled">
+                        <span class="page-link">{{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
+                    </li>
+                    {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}">Вперёд</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+            {% endif %}
+        </main>
+
+        <!-- Боковая панель -->
+        <aside class="sidebar col-lg-4 col-md-5 mb-4">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    Дополнительная информация
+                </div>
+                <div class="card-body text-custom">
+                    <p>Здесь можно разместить полезные ссылки или другую информацию.</p>
+                </div>
+            </div>
+        </aside>
+    </div>
+</div>
+{% endblock %}
