@@ -9,8 +9,9 @@
     --card-header-bg: #007BFF;
     --card-header-text: #ffffff;
     --sidebar-text: #333;
-    --link-hover-color: #0056b3; /* Новый цвет для ссылок при наведении */
-    --link-active-color: #ffdd57; /* Цвет активных ссылок */
+    --link-hover-color: #0056b3;
+    --link-active-color: #ffdd57;
+    --alt-text-color: #333;
 }
 
 /* CSS-переменные для тёмной темы */
@@ -26,6 +27,7 @@
     --sidebar-text: #e0e0e0;
     --link-hover-color: #00aaff;
     --link-active-color: #ffdd57;
+    --alt-text-color: #e0e0e0;
 }
 
 /* Общие стили */
@@ -38,11 +40,48 @@ body {
     transition: background-color 0.3s, color 0.3s;
 }
 
+/* Изображения */
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+/* Alt текст */
+.alt-text {
+    display: block;
+    color: var(--alt-text-color);
+    font-size: 0.9rem;
+    text-align: center;
+    word-wrap: break-word;
+    padding: 10px;
+    background-color: var(--card-bg);
+    border: 1px dashed var(--card-border);
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+/* Заглушка при отсутствии изображения */
+.image-placeholder {
+    background-color: var(--card-bg);
+    border: 1px dashed var(--card-border);
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--alt-text-color);
+    font-size: 0.9rem;
+    text-align: center;
+    border-radius: 5px;
+}
+
 /* Навигационная панель */
 .navbar .nav-link {
     color: var(--text-color);
-    font-weight: 600; /* Полужирный текст */
-    text-transform: uppercase; /* Верхний регистр */
+    font-weight: 600;
+    text-transform: uppercase;
     transition: color 0.3s;
 }
 

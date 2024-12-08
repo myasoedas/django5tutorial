@@ -2,12 +2,61 @@
 
 {% block title %}Публикации автора {{ author.username }}{% endblock %}
 
+{% block meta_description %}
+Публикации автора {{ author.username }}. Откройте для себя интересные материалы, написанные этим автором.
+{% endblock %}
+{% block meta_author %}{{ author.username }}{% endblock %}
+{% block meta_robots %}index, follow{% endblock %}
+
+{% block og_title %}Публикации автора {{ author.username }}{% endblock %}
+{% block og_description %}
+Публикации автора {{ author.username }}. Откройте для себя интересные материалы, написанные этим автором.
+{% endblock %}
+{% block og_type %}profile{% endblock %}
+{% block og_url %}{{ request.build_absolute_uri }}{% endblock %}
+{% block og_image %}
+{% if posts|length > 0 and posts.0.image %}
+{{ request.build_absolute_uri(posts.0.image.url) }}
+{% else %}
+{{ request.build_absolute_uri(STATIC_URL + 'img/default-og-image.jpg') }}
+{% endif %}
+{% endblock %}
+{% block og_image_alt %}
+{% if posts|length > 0 and posts.0.image %}
+Изображение публикации: {{ posts.0.title }}
+{% else %}
+Логотип сайта
+{% endif %}
+{% endblock %}
+{% block og_site_name %}Мой блог{% endblock %}
+{% block og_locale %}ru_RU{% endblock %}
+
+{% block twitter_title %}Публикации автора {{ author.username }}{% endblock %}
+{% block twitter_description %}
+Публикации автора {{ author.username }}. Откройте для себя интересные материалы, написанные этим автором.
+{% endblock %}
+{% block twitter_image %}
+{% if posts|length > 0 and posts.0.image %}
+{{ request.build_absolute_uri(posts.0.image.url) }}
+{% else %}
+{{ request.build_absolute_uri(STATIC_URL + 'img/default-og-image.jpg') }}
+{% endif %}
+{% endblock %}
+{% block twitter_image_alt %}
+{% if posts|length > 0 and posts.0.image %}
+Изображение публикации: {{ posts.0.title }}
+{% else %}
+Логотип сайта
+{% endif %}
+{% endblock %}
+
 {% block content %}
 <div class="container">
     <h1 class="mb-4">Публикации автора: {{ author.username }}</h1>
     <div class="row">
         <!-- Основной контент -->
         <main class="site-main col-lg-8 col-md-7 mb-4">
+            {% if posts %}
             <div class="row g-4">
                 {% for post in posts %}
                 <div class="col-md-6">
@@ -43,6 +92,9 @@
                     {% endif %}
                 </ul>
             </nav>
+            {% endif %}
+            {% else %}
+            <p class="text-muted">У автора пока нет опубликованных публикаций.</p>
             {% endif %}
         </main>
 

@@ -1,6 +1,70 @@
 {% extends "blog/base.html" %}
 
-{% block title %}Список публикаций{% endblock %}
+{% block title %}{{ page_title|default:"Список публикаций" }}{% endblock %}
+
+{% block meta_description %}
+{{ page_description|default:"Список публикаций в блоге. Читайте интересные статьи и находите полезную информацию." }}
+{% endblock %}
+
+{% block meta_author %}
+{{ page_og_author|default:"Администратор" }}
+{% endblock %}
+
+{% block meta_robots %}
+{{ page_robots|default:"index, follow" }}
+{% endblock %}
+
+{% block og_title %}
+{{ page_title|default:"Список публикаций" }}
+{% endblock %}
+
+{% block og_description %}
+{{ page_description|default:"Список публикаций в блоге. Читайте интересные статьи и находите полезную информацию." }}
+{% endblock %}
+
+{% block og_type %}
+website
+{% endblock %}
+
+{% block og_url %}
+{{ request.build_absolute_uri|default_if_none:"" }}
+{% endblock %}
+
+{% block og_image %}
+{{ page_og_image_url|default:"/static/img/default-og-image.jpg" }}
+{% endblock %}
+
+{% block og_image_alt %}
+{{ page_og_image_alt|default:"Изображение по умолчанию" }}
+{% endblock %}
+
+{% block og_site_name %}
+{{ page_og_site_name|default:"Мой блог" }}
+{% endblock %}
+
+{% block og_locale %}
+{{ page_og_locale|default:"ru_RU" }}
+{% endblock %}
+
+{% block og_location %}
+Россия
+{% endblock %}
+
+{% block twitter_title %}
+{{ page_title|default:"Список публикаций" }}
+{% endblock %}
+
+{% block twitter_description %}
+{{ page_description|default:"Список публикаций в блоге. Читайте интересные статьи и находите полезную информацию." }}
+{% endblock %}
+
+{% block twitter_image %}
+{{ page_og_image_url|default:"/static/img/default-og-image.jpg" }}
+{% endblock %}
+
+{% block twitter_image_alt %}
+{{ page_og_image_alt|default:"Изображение по умолчанию" }}
+{% endblock %}
 
 {% block content %}
 <div class="row">
@@ -11,7 +75,7 @@
             <div class="col-md-6">
                 <div class="card h-100">
                     {% if post.image %}
-                    <img src="{{ post.image.url }}" class="card-img-top" alt="Изображение {{ post.title }}">
+                    <img src="{{ post.image.url }}" class="card-img-top alt-text" alt="{{ post.title }}">
                     {% endif %}
                     <div class="card-body">
                         <h5 class="card-title">{{ post.title }}</h5>
